@@ -18,9 +18,14 @@ export async function loginUser(
   }
 
   const secret = process.env.JWT_SECRET as string;
-  const token = jwt.sign({ id: customer.id, role: customer.role }, secret, {
-    expiresIn: "24h",
-  });
+  const token = jwt.sign(
+    {
+      id: (customer as any)._id?.toString() || customer.id,
+      role: customer.role,
+    },
+    secret,
+    { expiresIn: "24h" },
+  );
 
   return token;
 }
