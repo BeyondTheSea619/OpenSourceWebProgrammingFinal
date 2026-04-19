@@ -1,30 +1,37 @@
 import { Booking } from "../../domain/entities/Booking";
+import { IBookingRepository } from "../../domain/repositories/IBookingRepository";
 
-export function getAllBookings(): Booking[] {
-  return [
-    {
-      id: 1,
-      customerId: 1, // Ian Botsford
-      equipmentId: 2,
-      startDate: "2026-04-01",
-      endDate: "2026-04-03",
-      status: "approved",
-    },
-    {
-      id: 2,
-      customerId: 2, // Shivank Tyagi
-      equipmentId: 1,
-      startDate: "2026-04-05",
-      endDate: "2026-04-06",
-      status: "pending",
-    },
-    {
-      id: 3,
-      customerId: 3, // Kush Barot
-      equipmentId: 3,
-      startDate: "2026-04-10",
-      endDate: "2026-04-12",
-      status: "confirmed",
-    },
-  ];
+export async function getAllBookings(
+  repository: IBookingRepository,
+): Promise<Booking[]> {
+  return await repository.findAll();
+}
+
+export async function getBookingById(
+  repository: IBookingRepository,
+  id: string,
+): Promise<Booking | null> {
+  return await repository.findById(id);
+}
+
+export async function createBooking(
+  repository: IBookingRepository,
+  data: Booking,
+): Promise<Booking> {
+  return await repository.create(data);
+}
+
+export async function updateBooking(
+  repository: IBookingRepository,
+  id: string,
+  data: Partial<Booking>,
+): Promise<Booking | null> {
+  return await repository.update(id, data);
+}
+
+export async function deleteBooking(
+  repository: IBookingRepository,
+  id: string,
+): Promise<boolean> {
+  return await repository.delete(id);
 }

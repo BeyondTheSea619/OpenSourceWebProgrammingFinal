@@ -2,11 +2,13 @@ import express from "express";
 import equipmentRoutes from "./presentation/routes/equipmentRoutes";
 import customerRoutes from "./presentation/routes/customerRoutes";
 import bookingRoutes from "./presentation/routes/bookingRoutes";
-import customerBookingRoutes from "./presentation/routes/customerBookingRoutes";
+import authRoutes from "./presentation/routes/authRoutes";
+import { loggerMiddleware } from "./presentation/middleware/loggerMiddleware";
 
 const app = express();
 
 app.use(express.json());
+app.use(loggerMiddleware);
 
 app.get("/", (req, res) => {
   res.json({
@@ -14,9 +16,9 @@ app.get("/", (req, res) => {
   });
 });
 
+app.use("/auth", authRoutes);
 app.use("/equipment", equipmentRoutes);
 app.use("/customers", customerRoutes);
 app.use("/bookings", bookingRoutes);
-app.use("/customer-bookings", customerBookingRoutes);
 
 export default app;
