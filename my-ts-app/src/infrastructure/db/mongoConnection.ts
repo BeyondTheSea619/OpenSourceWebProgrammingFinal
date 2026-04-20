@@ -7,7 +7,6 @@ const MONGO_URI = process.env.MONGO_URI as string;
 
 export async function connectToDatabase(): Promise<void> {
   try {
-    console.log("Connecting to:", MONGO_URI); // temporary debug line
     await mongoose.connect(MONGO_URI);
     console.log("Connected to MongoDB successfully");
   } catch (error) {
